@@ -1,0 +1,158 @@
+@import "mocha.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font Propo";
+  font-weight: bold;
+  font-size: 18px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: transparent;
+  /* main window transparent background */
+}
+
+tooltip {
+  background: @overlay2;
+  border: 2px solid @subtext1;
+  border-radius: 10px;
+}
+
+#custom-launcher,
+#workspaces button,
+#mpris,
+#privacy-item,
+#bluetooth,
+#clock,
+#tray,
+#cpu,
+#power-profiles-daemon,
+#memory,
+#backlight,
+#battery,
+#pulseaudio,
+#gamemode,
+#language,
+#network,
+#custom-updates,
+#custom-spotify {
+  background-color: @base;
+  margin: 10px 4px 4px 4px;
+  padding: 4px 10px;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.185);
+  border-radius: 8px;
+  color: @text;
+}
+
+#custom-updates {
+  color: @green;
+}
+
+#network {
+  color: @blue;
+}
+
+#language {
+  color: @peach;
+}
+
+#backlight {
+  color: @rosewater;
+}
+
+#pulseaudio {
+  color: @green;
+}
+
+#memory {
+  color: @sapphire;
+}
+
+#cpu {
+  color: @maroon;
+}
+
+/* extend empty space on both side of the bar,
+* value from ~/.config/hypr/hyprland.conf
+* gaps_out (8px) + border size (2px) = 10px */
+
+#clock {
+  padding-right: 10px;
+  color: @subtext0;
+}
+
+#privacy-item {
+  background: @red;
+  color: @crust;
+}
+
+#tray menu {
+  font-weight: bold;
+  color: @red;
+}
+
+#workspaces {
+  padding: 0 4px;
+}
+
+#workspaces button {
+  padding: 0px 12px 0px 8px;
+  /* fit with pill padding, 0px for not haveing duped vertical padding, 4px to make a square (4px value from module padding: ...#clock {padding >>4px<< 10px}) */
+  margin-left: 3px;
+  border: 1px solid transparent;
+  transition-property:
+    background-color, border-left-color, border-right-color;
+  transition-duration: 0.1s;
+  font-size: 10px;
+  color: @sky;
+}
+
+#workspaces button.empty {
+  padding: 0px 10px;
+}
+
+#workspaces button:first-child {
+  margin-left: 0;
+}
+
+#workspaces button.active {
+  /* active workspace */
+  background: @mauve;
+
+}
+
+#workspaces button:hover {
+  background: @lavaender;
+  /* hovered workspace color */
+}
+
+#battery {
+  color: @yellow;
+}
+
+#power-profiles-daemon {
+  color: @blue;
+}
+
+#battery.warning:not(.charging) {
+  color: @peach;
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#custom-spotify {
+  color: #1db954;    /* Spotify green */
+}
+
+@keyframes blink {
+to {
+  background-color: @red;
+}
+}

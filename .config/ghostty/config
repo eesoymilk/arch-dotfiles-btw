@@ -1,0 +1,10 @@
+font-family = JetBrainsMono Nerd Font
+window-padding-x = 8
+window-padding-y = 4
+background = #1e1e2e
+background-opacity = 0.95
+
+# We do not blur here since the blurring is done via hyprland already
+background-blur = false
+
+keybind = shift+enter=text:\n
