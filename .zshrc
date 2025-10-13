@@ -10,6 +10,8 @@ if [ ! -d "$ZINIT_HOME" ]; then
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
+unset zle_bracketed_paste
+
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
@@ -81,6 +83,8 @@ alias gp='git push'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+
+export YDOTOOL_SOCKET=/tmp/.ydotool_socket
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
