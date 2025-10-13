@@ -1,122 +1,146 @@
-# 🚀 Arch Linux Hyprland Setup Guide - G14 2021 Edition
+# 🚀 Arch Linux Hyprland Dotfiles
 
-> This is a complete guide to recreate my Arch Linux Hyprland desktop environment optimized for the ASUS ROG Zephyrus G14 2021 laptop.
+> **BTW, I use Arch.** And you're about to, too. 😎
 
-## 📋 Overview
+This is my minimal yet powerful Arch Linux + Hyprland rice, optimized for the ASUS ROG Zephyrus G14 2021. Less bloat, more aesthetics. Because why settle for a boring desktop when you can spend 47 hours configuring it to look cool?
 
-This setup provides a modern, beautiful, and efficient desktop environment featuring:
+## 📋 What's Inside
 
-- **Window Manager**: Hyprland (Wayland compositor)
-- **Status Bar**: Waybar with custom configuration
-- **Terminal**: Ghostty with transparent background and modern features
-- **Shell**: Zsh with Oh-My-Posh and modern plugins
-- **Application Launcher**: Wofi
-- **Editor**: Neovim with extensive plugin configuration
-- **Theme**: Catppuccin Mocha throughout
+The essentials for a chad Arch setup:
+
+- **Window Manager**: Hyprland (because Wayland is the future, deal with it)
+- **Status Bar**: Waybar (stolen config, but make it ✨ yours ✨)
+- **Terminal**: Ghostty with transparency (so everyone knows you're a hacker)
+- **Shell**: Zsh + Zinit + Oh-My-Posh (the holy trinity)
+- **Launcher**: Wofi (simple and works™)
+- **Editor**: Neovim (vim but neovim, obviously)
+- **Multiplexer**: Tmux (for when you need more terminal)
+- **Theme**: Catppuccin Mocha (the only correct colorscheme)
 
 ## 🛠 Core Components
 
-### System Management
-- **Display Manager**: Hyprland native
-- **Lock Screen**: Hyprlock
-- **Idle Management**: Hypridle
-- **Screenshots**: Hyprshot
-- **Audio**: PipeWire + PulseAudio compatibility
-- **Power Management**: TLP + powertop
-- **GPU**: NVIDIA + AMD hybrid graphics support
+### Hyprland Ecosystem
+- **Lock Screen**: Hyprlock (pretty lock screen go brr)
+- **Idle Management**: Hypridle (saves battery while you browse Reddit)
+- **Wallpaper**: Hyprpaper (because dynamic wallpapers are overrated)
+- **Logout Menu**: Wlogout (for when you actually want to shut down)
 
-### Development Environment
-- **Editor**: Neovim with LSP support
-- **Terminal**: Ghostty with advanced features and GPU acceleration
-- **Shell**: Zsh with Zinit plugin manager
-- **Prompt**: Oh-My-Posh with zen theme
-- **Version Control**: Git with custom aliases
-- **Node.js**: NVM for version management
+### Development Setup
+- **Terminal**: Ghostty (GPU-accelerated, blazingly fast™)
+- **Shell**: Zsh with Zinit (plugins that actually work)
+- **Prompt**: Oh-My-Posh zen theme (minimal but informative)
+- **Editor**: Neovim with LSP (because I'm not a masochist, just pretending)
+- **Multiplexer**: Tmux (inspired by Dreams of Code)
+- **Version Control**: Git with sexy aliases
+- **Node.js**: NVM (switching versions like a pro)
+- **Navigation**: Zoxide + FZF (cd but smarter)
+
+### G14 2021 Specific
+- **ASUS Tools**: asusctl + supergfxctl + ROG Control Center
+- **GPU Switching**: NVIDIA/AMD hybrid graphics (actually works!)
+- **Power Profiles**: Performance/Balanced/Quiet modes via ROG key
+- **Audio**: PipeWire (because PulseAudio is so 2019)
 
 ## 📦 Installation Guide
 
-### 1. Base Arch Installation
+> **Disclaimer**: This assumes you've already survived the Arch installation process. If you haven't, see you in 6 hours after reading the wiki.
+
+### 1. Install AUR Helper (yay)
 
 ```bash
-# After base Arch installation, install essential packages
-sudo pacman -S git base-devel
-```
-
-### 2. Install AUR Helper
-
-```bash
-# Install yay AUR helper
+sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 ```
 
-### 3. Install Core Packages
+### 2. Install All The Things™
 
 ```bash
-# Hyprland ecosystem
-sudo pacman -S hyprland waybar wofi ghostty neovim
+# Hyprland + friends
+sudo pacman -S hyprland waybar wofi ghostty neovim tmux
 
-# Development tools
+# Shell goodness
+sudo pacman -S zsh fzf zoxide
+
+# Development
 sudo pacman -S git nodejs npm python python-pip go
 
-# Media and utilities
+# Utilities
 sudo pacman -S firefox dolphin pavucontrol brightnessctl playerctl
 
-# AUR packages
+# AUR packages (the real Arch experience)
 yay -S oh-my-posh-bin hyprshot wlogout
 ```
 
-### 4. G14 Specific Packages
+### 3. G14 Laptop Superpowers
 
 ```bash
-# ASUS G14 specific tools
+# ASUS ROG tools (makes your laptop not suck on Linux)
 yay -S asusctl supergfxctl rog-control-center
 
-# Enable services
-sudo systemctl enable supergfxd
-sudo systemctl enable power-profiles-daemon
+# Enable the magic
+sudo systemctl enable --now supergfxd
+sudo systemctl enable --now power-profiles-daemon
 ```
 
-### 5. Clone and Setup Dotfiles
+### 4. Clone These Dotfiles
 
 ```bash
-# Clone this repository
-git clone <your-repo-url> ~/arch-dotfiles-btw
-cd ~/arch-dotfiles-btw
+# Clone this repo
+cd ~
+git clone https://github.com/yourusername/arch-dotfiles-btw.git
+cd arch-dotfiles-btw
 
-# Copy configurations
+# YOLO copy everything
 cp -r .config/* ~/.config/
 cp .zshrc ~/
+
+# Waybar is a separate repo inside this repo (yes, really)
+cd ~/.config/waybar
+git pull  # or just accept the chaos
 ```
 
-### 6. Shell Setup
+### 5. Shell Setup
 
 ```bash
-# Change default shell to zsh
+# Switch to zsh (the superior shell)
 chsh -s $(which zsh)
 
-# Install Zinit (will auto-install on first zsh run)
-# Zinit will automatically install zsh plugins on first run
+# Log out and back in, or just:
+zsh
 
-# Install Oh-My-Posh themes
+# First run will auto-install Zinit and all plugins (magic!)
+# Install a nerd font for icons
 oh-my-posh font install JetBrainsMono
 ```
 
-### 7. Neovim Setup
+### 6. Node.js Version Manager
 
 ```bash
-# Neovim will auto-install plugins using lazy.nvim on first run
-nvim
+# Install NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+# Install latest Node
+nvm install node
 ```
 
-## ⚙️ Configuration Details
+### 7. Neovim
 
-### Hyprland Features
-- **Animations**: Custom bezier curves for smooth transitions
-- **Workspace Management**: 10 workspaces with SUPER key bindings
-- **Window Management**: Vim-like navigation (hjkl)
-- **Screenshots**: Region and window capture with clipboard support
-- **Lock Screen**: Hyprlock with custom styling
+```bash
+# Just open it, lazy.nvim will handle the rest
+nvim
+
+# Wait for plugins to install (grab a coffee)
+```
+
+## ⚙️ Configuration Highlights
+
+### Hyprland
+- **Animations**: Buttery smooth bezier curves (because we're fancy)
+- **Workspaces**: 10 workspaces, SUPER key your way through them
+- **Window Nav**: Vim bindings (hjkl) because mouse is for normies
+- **Screenshots**: Hyprshot with clipboard support (SUPER+SHIFT+S)
+- **Lock Screen**: Hyprlock with Catppuccin vibes
 
 ### G14 2021 Optimizations
 
@@ -134,150 +158,198 @@ nvim
 - **Fn + F7/F8**: Display brightness control
 - **Fn + F9/F10**: Keyboard backlight control
 
-### Waybar Configuration
-- **Left**: Workspaces, media player info
-- **Center**: Clock with date
-- **Right**: Power profiles, audio, network, battery, system tray
+### Waybar
+Modular Waybar config stolen from the internet and customized:
+- **Modules**: Clock, workspaces, window title, media player, system stats
+- **Theme**: Custom CSS with Catppuccin colors
+- **Separate Git Repo**: Because it's actually a nested submodule (organization? what's that?)
 
-### Ghostty Terminal Configuration
-- **Font**: JetBrains Mono Nerd Font
-- **Theme**: Catppuccin Mocha
-- **Transparency**: 95% opacity with Hyprland blur
-- **Padding**: Optimized for readability
-- **GPU Acceleration**: Hardware-accelerated rendering
-- **Modern Features**: Ligature support, smooth scrolling
-- **Keybindings**: Custom shift+enter for newlines
-- **Performance**: Fast startup and low resource usage
+### Ghostty Terminal
+```toml
+font-family = "JetBrainsMono Nerd Font"
+theme = "catppuccin-mocha"
+window-padding-x = 10
+window-padding-y = 10
+background-opacity = 0.95
+```
+- GPU-accelerated (your terminal renders at 144fps, deal with it)
+- Transparent background + Hyprland blur = aesthetic
+- Smooth scrolling and ligature support
+- Fast startup because Rust things
+
+### Zsh Configuration
+- **Plugin Manager**: Zinit (auto-installs on first run)
+- **Plugins**:
+  - zsh-syntax-highlighting (pretty colors)
+  - zsh-autosuggestions (mind reading)
+  - zsh-completions (tab go brr)
+  - fzf-tab (fuzzy everything)
+- **Aliases**: Git shortcuts for the lazy (me)
+- **History**: 5000 commands because I never remember anything
 
 ## 🎨 Theming
 
-### Catppuccin Mocha Palette
-The entire setup uses the Catppuccin Mocha color scheme:
-- **Base**: `#1e1e2e`
-- **Accent**: `#33ccff` / `#00ff99`
-- **Text**: `#cdd6f4`
+**Catppuccin Mocha everywhere.** Yes, everywhere. Terminal, editor, status bar, lock screen, even your mom's laptop.
 
-### Custom Styling
-- **Borders**: Animated gradient borders
-- **Shadows**: Subtle drop shadows
-- **Opacity**: Selective transparency for depth
-- **Blur**: Background blur for modern aesthetics
-
-## 🔧 Customization Tips
-
-### Modifying Keybindings
-Edit `~/.config/hypr/hyprland/binds.conf` for custom shortcuts.
-
-### Changing Colors
-Modify `~/.config/hypr/mocha.conf` for color scheme adjustments.
-
-### Adding Applications
-Update `~/.config/waybar/config.jsonc` for status bar modules.
-
-### Performance Tuning
-Adjust animation settings in `~/.config/hypr/hyprland.conf`:
-```conf
-animations {
-    enabled = true
-    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-}
 ```
+Base:   #1e1e2e  (dark but not too dark)
+Accent: #33ccff / #00ff99  (cyan/green gradient because yes)
+Text:   #cdd6f4  (easy on the eyes at 3am)
+```
+
+**Visual Flex:**
+- Animated gradient borders (watch them shimmer)
+- Transparent windows with blur (fake depth perception)
+- Consistent color scheme (OCD approved)
+- Smooth animations that make Windows 11 jealous
+
+## 🔧 Customization
+
+### File Structure
+```
+~/.config/
+├── hypr/
+│   ├── hyprland.conf          # Main config
+│   ├── hyprland/              # Split configs (binds, rules, etc)
+│   ├── hyprlock.conf          # Lock screen
+│   ├── hypridle.conf          # Idle management
+│   ├── hyprpaper.conf         # Wallpaper
+│   └── mocha.conf             # Color scheme
+├── waybar/                     # Status bar (separate git repo)
+├── ghostty/                    # Terminal config
+├── nvim/                       # Neovim config
+├── tmux/                       # Tmux config
+├── wofi/                       # App launcher
+├── wlogout/                    # Logout menu
+└── ohmyposh/                   # Shell prompt theme
+
+~/.zshrc                        # Shell configuration
+```
+
+### Quick Tweaks
+- **Keybindings**: `~/.config/hypr/hyprland/binds.conf`
+- **Colors**: `~/.config/hypr/mocha.conf`
+- **Waybar modules**: `~/.config/waybar/config.jsonc`
+- **Terminal**: `~/.config/ghostty/config`
+- **Shell aliases**: `~/.zshrc`
 
 ## 🔍 Troubleshooting
 
-### Common Issues
+### "It doesn't work"
 
-#### NVIDIA Graphics
+**NVIDIA being NVIDIA:**
 ```bash
-# Check if nvidia modules are loaded
-lsmod | grep nvidia
-
-# Verify environment variables
-echo $LIBVA_DRIVER_NAME
+lsmod | grep nvidia  # Are the drivers even loaded?
+nvidia-smi           # Is the GPU alive?
 ```
 
-#### Audio Issues
+**No sound:**
 ```bash
-# Restart PipeWire
-systemctl --user restart pipewire
-systemctl --user restart wireplumber
+systemctl --user restart pipewire wireplumber
+# Have you tried turning it off and on again?
 ```
 
-#### G14 Function Keys Not Working
+**G14 function keys don't work:**
 ```bash
-# Install and enable asusctl
-sudo systemctl enable asusd
-sudo systemctl start asusd
+sudo systemctl enable --now asusd
+asusctl -h  # Read the docs (I know, crazy)
 ```
 
-### Performance Issues
+**Laptop is on fire:**
 ```bash
-# Check system resource usage
-htop
-# Monitor GPU usage
-nvidia-smi
-# Check power profile
-asusctl profile -p
+asusctl profile -p Quiet  # Set to Quiet mode
+sudo tlp-stat -b          # Check battery stats
+# Maybe close Chrome?
 ```
 
-## 📱 Additional Tools
-
-### Recommended Applications
-- **File Manager**: Dolphin (KDE)
-- **Image Viewer**: Gwenview
-- **PDF Viewer**: Okular
-- **Music Player**: Spotify (AUR)
-- **Video Player**: VLC
-- **Code Editor**: Visual Studio Code (AUR)
-
-### Development Tools
-- **Docker**: For containerization
-- **Postman**: API testing
-- **DBeaver**: Database management
-- **GIMP**: Image editing
-
-## 🚀 Performance Notes
-
-### G14 2021 Specific Optimizations
-- **TDP Management**: Optimized power limits for battery life
-- **GPU Switching**: Automatic switching between integrated and discrete GPU
-- **Display Scaling**: Proper 125% scaling for QHD display
-- **Thermal Management**: Custom fan curves via ASUS tools
-
-### Battery Optimization
+**Zinit won't install:**
 ```bash
-# Install and configure TLP
-sudo pacman -S tlp
-sudo systemctl enable tlp
-
-# Monitor power consumption
-sudo tlp-stat -b
+rm -rf ~/.local/share/zinit
+zsh  # It'll reinstall automatically
+# Magic!
 ```
 
-## 📚 Learning Resources
+## 🎯 Key Features
 
-### Hyprland
-- [Hyprland Wiki](https://wiki.hyprland.org/)
-- [Waybar Documentation](https://github.com/Alexays/Waybar/wiki)
+### What Makes This Setup Special?
 
-### Neovim
-- [Lazy.nvim Plugin Manager](https://github.com/folke/lazy.nvim)
-- [LSP Configuration](https://github.com/neovim/nvim-lspconfig)
+1. **Actually Works on G14 2021**
+   - Hybrid graphics that doesn't crash
+   - Function keys that do things
+   - Battery life that doesn't suck
+   - ROG key that cycles performance modes
 
-### Ghostty
-- [Ghostty Documentation](https://ghostty.org/docs)
-- [Ghostty Configuration](https://ghostty.org/docs/config)
+2. **Modern Tools**
+   - Wayland (X11 is so 2015)
+   - Ghostty terminal (Rust go brr)
+   - Zinit (faster than oh-my-zsh)
+   - FZF + Zoxide (never `cd` normally again)
 
-## 🤝 Credits
+3. **Quality of Life**
+   - Transparent terminals with blur
+   - Smooth 144Hz animations
+   - Auto-installing everything
+   - Git aliases for the lazy
 
-- **Hyprland Community**: For the amazing compositor
-- **Catppuccin**: For the beautiful color scheme
-- **Dreams of Code**: Tmux configuration inspiration
-- **ASUS Linux Community**: G14 optimization guides
+4. **Aesthetic AF**
+   - Catppuccin Mocha everywhere
+   - Gradient animated borders
+   - Clean minimal Waybar
+   - Oh-My-Posh zen theme
+
+## 📚 Resources
+
+### Learning
+- [Hyprland Wiki](https://wiki.hyprland.org/) - RTFM
+- [Arch Wiki](https://wiki.archlinux.org/) - Your new Bible
+- [r/unixporn](https://reddit.com/r/unixporn) - For inspiration/jealousy
+
+### Credits
+- **Hyprland Community** - The compositor gods
+- **Catppuccin** - The only theme you'll ever need
+- **Dreams of Code** - Tmux config inspo
+- **ASUS Linux Community** - Making G14 usable on Linux
+- **Stack Overflow** - For when things break (they will)
 
 ---
 
-**Happy Ricing! 🎨**
+## 🚨 Important Notes
 
-*This setup represents hours of fine-tuning for the perfect balance of aesthetics, performance, and productivity on the ASUS G14 2021.*
+### Known Issues
+- **Waybar is a git submodule** - Yes, it's a repo inside a repo. Don't ask why.
+- **waystt folder** - It exists. Contains env example. Probably useless. Too afraid to delete it.
+- **First boot will be slow** - Zinit, NVM, and Neovim plugins all auto-install. Be patient.
+- **NVIDIA drivers** - Will probably break after a kernel update. Welcome to Arch.
+
+### TODO (maybe someday)
+- [ ] Clean up waybar submodule situation
+- [ ] Figure out what waystt is for
+- [ ] Write proper installation script
+- [ ] Take a screenshot for this README
+- [ ] Actually document the Neovim config
+
+---
+
+## 💀 Final Words
+
+If you made it this far, congratulations. You're either:
+1. Actually setting this up
+2. Procrastinating
+3. Lost
+
+Either way, enjoy your new rice. Remember: the setup is never truly done. There's always one more tweak, one more plugin, one more color to adjust.
+
+**Happy ricing!** 🎨✨
+
+*P.S. BTW, I use Arch.*
+
+---
+
+<div align="center">
+
+**Made with ☕ and poor life choices**
+
+*This setup represents countless hours of tweaking, breaking, fixing, and definitely not working on actual projects.*
+
+</div>
 
