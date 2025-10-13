@@ -8,3 +8,4 @@ background-opacity = 0.95
 background-blur = false
 
 keybind = shift+enter=text:\n
+keybind = ctrl+delete=text:\e[3;5~
